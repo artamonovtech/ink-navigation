@@ -32,7 +32,7 @@ const Version = () => {
   return <Text>1.0.0</Text>;
 };
 
-const PrintParsedArgs = () => {
+const ParsedArgs = () => {
   const args = useArgs();
 
   return <Text>{JSON.stringify(args, null, 2)}</Text>;
@@ -47,8 +47,8 @@ const App = () => {
       <Command name="version">
         <Version />
       </Command>
-      <Command name="print-parsed-args">
-        <PrintParsedArgs />
+      <Command name="parsed-args">
+        <ParsedArgs />
       </Command>
       <NoMatch>
         <Help />
@@ -69,7 +69,7 @@ You can then use the tool like so:
 > tool version
 > 1.0.0
 >
-> tool print-parsed-args -hello world -foo=bar --one=two --three four final-arg
+> tool parsed-args -hello world -foo=bar --one=two --three four final-arg
 > {
 >   "_": ["final-arg"],
 >   "hello":"world",
