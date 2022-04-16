@@ -1,6 +1,6 @@
 {
   "name": "ink-navigation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple React based router for ink CLIs.",
   "repository": {
     "url": "https://github.com/artamonovtech/ink-navigation"
