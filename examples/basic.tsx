@@ -1,21 +1,21 @@
 #!/usr/bin/env node
-import React from 'react';
-import { Text, render } from 'ink';
-import { CommandRouter, Command, NoMatch, useArgs } from 'ink-navigation';
+import React from "react"
+import { Text, render } from "ink"
+import { CommandRouter, Command, NoMatch, useArgs } from "ink-navigation"
 
 const Help = () => {
-  return <Text>Add a description of the help...</Text>;
-};
+  return <Text>Add a description of the help...</Text>
+}
 
 const Version = () => {
-  return <Text>1.0.0</Text>;
-};
+  return <Text>1.0.0</Text>
+}
 
 const ParsedArgs = () => {
-  const args = useArgs();
+  const args = useArgs()
 
-  return <Text>{JSON.stringify(args, null, 2)}</Text>;
-};
+  return <Text>{JSON.stringify(args, null, 2)}</Text>
+}
 
 const App = () => {
   return (
@@ -33,7 +33,7 @@ const App = () => {
         <Help />
       </NoMatch>
     </CommandRouter>
-  );
-};
+  )
+}
 
-render(<App />);
+render(<App />)

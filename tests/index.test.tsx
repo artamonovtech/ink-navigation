@@ -1,38 +1,34 @@
-import React from 'react';
-import { render } from 'ink-testing-library';
-import { Text } from 'ink';
-import { CommandRouter, Command, useArgs, BaseArgs, NoMatch } from '../src';
+import React from "react"
+import { render } from "ink-testing-library"
+import { Text } from "ink"
+import { CommandRouter, Command, useArgs, BaseArgs, NoMatch } from "../src"
 
-const buildArgs = (...args: string[]) => [
-  'exec/path',
-  'script/file.js',
-  ...args,
-];
+const buildArgs = (...args: string[]) => ["exec/path", "script/file.js", ...args]
 
 interface HookTestHarnessArgs extends BaseArgs {
-  x: number;
-  y: number;
-  n: number;
-  a: boolean;
-  b: boolean;
-  c: boolean;
-  beep: string;
+  x: number
+  y: number
+  n: number
+  a: boolean
+  b: boolean
+  c: boolean
+  beep: string
 }
 
 const HookTestHarness = () => {
-  const args = useArgs<HookTestHarnessArgs>();
+  const args = useArgs<HookTestHarnessArgs>()
 
   return (
     <>
       <Text>{JSON.stringify(args)}</Text>
     </>
-  );
-};
+  )
+}
 
-describe('command-router', () => {
-  it('should run first command with matching name', () => {
+describe("command-router", () => {
+  it("should run first command with matching name", () => {
     const { lastFrame } = render(
-      <CommandRouter args={buildArgs('two')}>
+      <CommandRouter args={buildArgs("two")}>
         <Command name="one">
           <Text>one</Text>
         </Command>
@@ -42,52 +38,38 @@ describe('command-router', () => {
         <Command name="three">
           <Text>three</Text>
         </Command>
-      </CommandRouter>,
-    );
+      </CommandRouter>
+    )
 
-    expect(lastFrame()).toBe('two');
-  });
+    expect(lastFrame()).toBe("two")
+  })
 
-  it('should provide parsed args via useArgs hook', () => {
+  it("should provide parsed args via useArgs hook", () => {
     const { lastFrame } = render(
-      <CommandRouter
-        args={buildArgs(
-          'one',
-          '-x',
-          '3',
-          '-y',
-          '4',
-          '-n5',
-          '-abc',
-          '--beep=boop',
-          'foo',
-          'bar',
-          'baz',
-        )}
-      >
+      <CommandRouter args={buildArgs("one", "-x", "3", "-y", "4", "-n5", "-abc", "--beep=boop", "foo", "bar", "baz")}>
         <Command name="one">
           <HookTestHarness />
         </Command>
-      </CommandRouter>,
-    );
+      </CommandRouter>
+    )
 
     expect(lastFrame()).toBe(
       JSON.stringify({
-        _: ['foo', 'bar', 'baz'],
+        _: ["foo", "bar", "baz"],
         x: 3,
         y: 4,
         n: 5,
         a: true,
         b: true,
         c: true,
-        beep: 'boop',
-      }),
-    );
-  });
+        beep: "boop"
+      })
+    )
+  })
 
   it("should return 'Command not found' if no command is matched and <NoMatch /> is not used", () => {
     const { lastFrame } = render(
-      <CommandRouter args={buildArgs('four')}>
+      <CommandRouter args={buildArgs("four")}>
         <Command name="one">
           <Text>one</Text>
         </Command>
@@ -97,15 +79,15 @@ describe('command-router', () => {
         <Command name="three">
           <Text>three</Text>
         </Command>
-      </CommandRouter>,
-    );
+      </CommandRouter>
+    )
 
-    expect(lastFrame()).toBe('Command not found');
-  });
+    expect(lastFrame()).toBe("Command not found")
+  })
 
-  it('should return NoMatch child if no command is matched', () => {
+  it("should return NoMatch child if no command is matched", () => {
     const { lastFrame } = render(
-      <CommandRouter args={buildArgs('four')}>
+      <CommandRouter args={buildArgs("four")}>
         <Command name="one">
           <Text>one</Text>
         </Command>
@@ -118,9 +100,9 @@ describe('command-router', () => {
         <NoMatch>
           <Text>Hmm where IS that command?!</Text>
         </NoMatch>
-      </CommandRouter>,
-    );
+      </CommandRouter>
+    )
 
-    expect(lastFrame()).toBe('Hmm where IS that command?!');
-  });
-});
+    expect(lastFrame()).toBe("Hmm where IS that command?!")
+  })
+})
